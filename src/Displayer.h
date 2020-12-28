@@ -13,6 +13,7 @@
 #include "Curve.h"
 #include "Surface.h"
 #include "Point.h"
+
 class Displayer {
 public:
     Displayer(uint32_t w, uint32_t h): w(w), h(h)
@@ -39,7 +40,10 @@ public:
         {
             throw std::runtime_error("Failed to initialize GLAD");
         }
-
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_MULTISAMPLE);
+//        glEnable(GL_LINE_SMOOTH);
+        GL_CHECK
         camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 10.0f));
         curve=std::make_unique<Curve>();
         curve->setupView(camera->getViewMatrix());
@@ -52,6 +56,26 @@ public:
 
 public:
     void render();
+
+    /**
+     * @brief add a new curve and return the curve's index.
+     * @return return index>0 if success,else -1.
+     */
+    int addCurve();
+
+    /**
+     * @brief delete a curve specified by index.
+     * @param index : returned by addCurve
+     * @return if exits deleting curve return 0,else -1.
+     * @see addCurve
+     */
+    int deleteCurve(uint32_t index);
+
+    void addCurveControlPoints(uint32_t index,const std::vector<B_SPLINE_DATATYPE>& controlP);
+    void clearCurveControlPoints(uint32_t index);
+
+
+
 private:
     SDL_GLContext gl_context;
     SDL_Window *window;

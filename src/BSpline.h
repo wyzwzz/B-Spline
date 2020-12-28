@@ -9,12 +9,15 @@
 #include "Config.h"
 class BSpline{
 public:
-    BSpline()=default;
+    BSpline()
+    :step(0.01f),order(3)
+    {}
 
     virtual const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(std::vector<B_SPLINE_DATATYPE>& controlP)=0;
     virtual const std::vector<B_SPLINE_DATATYPE>& getApproximationP(std::vector<B_SPLINE_DATATYPE>& controlP)=0;
     void setupStep(float step){this->step=step;}
-private:
+    void setupOrder(int order){this->order=order;};
+protected:
     float step;
     int order;
     std::vector<B_SPLINE_DATATYPE> knots;

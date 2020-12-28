@@ -7,6 +7,8 @@
 
 #define B_SPLINE_DATATYPE float
 
+
+
 #define CURVE_VERTEX_SHADER_PATH "../src/shader/curve_line_v.glsl"
 #define CURVE_FRAGMENT_SHADER_PATH "../src/shader/curve_line_f.glsl"
 

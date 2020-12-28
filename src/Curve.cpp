@@ -6,7 +6,7 @@
 #include "Util.h"
 
 Curve::Curve()
-:model(glm::mat4(1.f))
+:model(glm::mat4(1.f)),draw_mode(GL_LINES)
 {
     setupGLShader(CURVE_VERTEX_SHADER_PATH,CURVE_FRAGMENT_SHADER_PATH);
 }
@@ -15,7 +15,7 @@ void Curve::setupMVPMatrix(const glm::mat4 &mvp)
     this->mvp=mvp;
 }
 
-void Curve::setupCurveVertex(std::vector<float> &vertex)
+void Curve::setupCurveVertex(const std::vector<float> &vertex)
 {
     deleteGLResource();
 
@@ -32,7 +32,8 @@ void Curve::draw()
     glBindVertexArray(vao);
     shader->use();
     shader->setMat4("MVPMatrix",projection*view*model);
-    glDrawElements(GL_LINES,index.size(),GL_UNSIGNED_INT,nullptr);
+    glPointSize(3.f);
+    glDrawElements(draw_mode,index.size(),GL_UNSIGNED_INT,nullptr);
     glBindVertexArray(0);
     GL_CHECK
 }
@@ -81,6 +82,11 @@ void Curve::setupView(const glm::mat4 &view)
 void Curve::setupProjection(const glm::mat4 &projection)
 {
     this->projection=projection;
+}
+
+void Curve::setupDrawMode(GLenum mode)
+{
+    draw_mode=mode;
 }
 
 

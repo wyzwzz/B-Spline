@@ -13,7 +13,7 @@ class Curve {
 public:
     Curve();
 
-    void setupCurveVertex(std::vector<B_SPLINE_DATATYPE>& vertex);
+    void setupCurveVertex(const std::vector<B_SPLINE_DATATYPE>& vertex);
     void setupMVPMatrix(const glm::mat4& mvp);
     void setupModel(const glm::mat4& model);
     void setupView(const glm::mat4& view);
@@ -21,6 +21,7 @@ public:
     void draw();
     void setupGLResource();
     void setupGLShader(const std::string& vertex_shader_path,const std::string& fragment_shader_path);
+    void setupDrawMode(GLenum mode);
 private:
     void deleteGLResource();
 private:
@@ -32,6 +33,7 @@ private:
     std::unique_ptr<Shader> shader;
     glm::mat4 mvp;
     glm::mat4 model,view,projection;
+    GLenum draw_mode;
 };
 
 

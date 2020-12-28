@@ -87,18 +87,17 @@ void Displayer::render()
                     break;
             }
             if(update_view_matrix){
-                curve->setupView(camera->getViewMatrix());
+                for(auto& curve:curves)
+                    curve->setupView(camera->getViewMatrix());
             }
             if(update_projection_matrix){
-                curve->setupProjection(glm::perspective(glm::radians(camera->getZoom()), (float)w / h, 0.1f, 50.0f));
+                for(auto& curve:curves)
+                    curve->setupProjection(glm::perspective(glm::radians(camera->getZoom()), (float)w / h, 0.1f, 50.0f));
             }
         }
     };
 
-    std::vector<float> v{0.f,0.f,0.f,
-                         5.f,5.f,5.f};
 
-    curve->setupCurveVertex(v);
     /**
      * render loop
      */
@@ -110,11 +109,12 @@ void Displayer::render()
         auto current = std::chrono::steady_clock::now();
         auto t = std::chrono::duration_cast<std::chrono::milliseconds>(current - last);
         last = current;
-        std::cout << "render one frame cost time: " << t.count() << "ms" << std::endl;
+//        std::cout << "render one frame cost time: " << t.count() << "ms" << std::endl;
         glClearColor(0.f,0.f,0.f,1.f);
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-        curve->draw();
+        for(auto& curve:curves)
+            curve->draw();
 
         glFlush();
         glFinish();
@@ -122,4 +122,42 @@ void Displayer::render()
     }
 
     SDL_StopTextInput();
+}
+
+int Displayer::addCurve()
+{
+    try {
+        curves.emplace_back(std::make_unique<Curve>());
+        curves.back()->setupView(camera->getViewMatrix());
+        curves.back()->setupProjection(glm::perspective(glm::radians(camera->getZoom()), (float) w / h, 0.1f, 50.0f));
+    }
+    catch(std::exception err){
+        std::cout<<__FUNCTION__ <<" error: "<<err.what()<<std::endl;
+        return -1;
+    }
+    return curves.size()-1;
+}
+
+int Displayer::deleteCurve(uint32_t index)
+{
+    if(index<curves.size()){
+        curves.erase(curves.cbegin()+index);
+        return 0;
+    }
+    return -1;
+}
+
+
+void Displayer::addCurveControlPoints(uint32_t index,const std::vector<B_SPLINE_DATATYPE>& controlP)
+{
+    if(index<curves.size()){
+        curves[index]->setupCurveVertex(controlP);
+    }
+}
+
+void Displayer::clearCurveControlPoints(uint32_t index)
+{
+    if(index<curves.size()){
+        curves[index]->setupCurveVertex({});
+    }
 }

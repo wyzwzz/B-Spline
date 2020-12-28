@@ -6,16 +6,23 @@
 #define B_SPLINE_BSPLINECURVE_H
 
 #include "BSpline.h"
+
 /**
  * 3-dim B-spline curve
  */
 class BSplineCurve : public BSpline{
 public:
     BSplineCurve()=default;
+
+    /**
+     * @brief get interpolation points by step.
+     */
     const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(std::vector<B_SPLINE_DATATYPE>& controlP) override;
+
     const std::vector<B_SPLINE_DATATYPE>& getApproximationP(std::vector<B_SPLINE_DATATYPE>& controlP) override;
 
 public:
+    const std::vector<B_SPLINE_DATATYPE>& DeBoor_Cox(std::vector<B_SPLINE_DATATYPE>& controlP);
 
 private:
     /**
