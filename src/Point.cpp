@@ -40,7 +40,6 @@ void Point::setupGLResource()
     glGenVertexArrays(1,&vao);
     glGenBuffers(1,&vbo);
 
-
     glBindVertexArray(vao);
     glBindBuffer(GL_ARRAY_BUFFER,vbo);
     glBufferData(GL_ARRAY_BUFFER,vertex.size()*sizeof(B_SPLINE_DATATYPE),vertex.data(),GL_STATIC_DRAW);

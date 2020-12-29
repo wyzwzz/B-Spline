@@ -80,7 +80,6 @@ void Displayer::render()
                     if (event.button.button == 1)
                     {
                         camera->processMouseMovement(event.motion.xrel, -event.motion.yrel);
-
                         update_view_matrix = true;
                     }
                 }
@@ -89,10 +88,14 @@ void Displayer::render()
             if(update_view_matrix){
                 for(auto& curve:curves)
                     curve->setupView(camera->getViewMatrix());
+                for(auto& surface:surfaces)
+                    surface->setupView(camera->getViewMatrix());
             }
             if(update_projection_matrix){
                 for(auto& curve:curves)
                     curve->setupProjection(glm::perspective(glm::radians(camera->getZoom()), (float)w / h, 0.1f, 50.0f));
+                for(auto& surface:surfaces)
+                    surface->setupProjection(glm::perspective(glm::radians(camera->getZoom()), (float)w / h, 0.1f, 50.0f));
             }
         }
     };
@@ -115,7 +118,8 @@ void Displayer::render()
 
         for(auto& curve:curves)
             curve->draw();
-
+        for(auto& surface:surfaces)
+            surface->draw();
         glFlush();
         glFinish();
         SDL_GL_SwapWindow(window);
@@ -159,5 +163,42 @@ void Displayer::clearCurveControlPoints(uint32_t index)
 {
     if(index<curves.size()){
         curves[index]->setupCurveVertex({});
+    }
+}
+
+int Displayer::addSurface()
+{
+    try {
+        surfaces.emplace_back(std::make_unique<Surface>());
+        surfaces.back()->setupView(camera->getViewMatrix());
+        surfaces.back()->setupProjection(glm::perspective(glm::radians(camera->getZoom()), (float) w / h, 0.1f, 50.0f));
+    }
+    catch(std::exception err){
+        std::cout<<__FUNCTION__ <<" error: "<<err.what()<<std::endl;
+        return -1;
+    }
+    return surfaces.size()-1;
+}
+
+int Displayer::deleteSurface(uint32_t index)
+{
+    if(index<surfaces.size()){
+        surfaces.erase(surfaces.cbegin()+index);
+        return 0;
+    }
+    return -1;
+}
+
+void Displayer::addSurfaceControlPoints(uint32_t index, const std::vector<float> &controlP, uint32_t pitch)
+{
+    if(index<surfaces.size()){
+        surfaces[index]->setupSurfaceVertex(controlP,pitch);
+    }
+}
+
+void Displayer::clearSurfaceControlPoints(uint32_t index)
+{
+    if(index<surfaces.size()){
+        surfaces[index]->setupSurfaceVertex({},0);
     }
 }

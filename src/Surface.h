@@ -18,6 +18,7 @@ public:
      * @param pitch: number of vertex for a row.
      */
     void setupSurfaceVertex(const std::vector<B_SPLINE_DATATYPE>& vertex,uint32_t pitch);
+
     void setupMVPMatrix(const glm::mat4& mvp)=delete;
     void setupModel(const glm::mat4& model);
     void setupView(const glm::mat4& view);
@@ -33,6 +34,7 @@ private:
     GLuint vbo;
     GLuint ebo;
     std::vector<B_SPLINE_DATATYPE> vertex;
+    uint32_t row,col,triangle_num;
     std::vector<GLuint> index;
     std::unique_ptr<Shader> shader;
     glm::mat4 mvp;

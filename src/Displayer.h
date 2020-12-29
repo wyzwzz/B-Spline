@@ -45,9 +45,6 @@ public:
 //        glEnable(GL_LINE_SMOOTH);
         GL_CHECK
         camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 10.0f));
-        curve=std::make_unique<Curve>();
-        curve->setupView(camera->getViewMatrix());
-        curve->setupProjection(glm::perspective(glm::radians(camera->getZoom()), (float)w / h, 0.1f, 50.0f));
     }
     ~Displayer(){
         SDL_EXPR(SDL_DestroyWindow(window);)
@@ -66,7 +63,7 @@ public:
     /**
      * @brief delete a curve specified by index.
      * @param index : returned by addCurve
-     * @return if exits deleting curve return 0,else -1.
+     * @return if exits deleting curve return 0, else -1.
      * @see addCurve
      */
     int deleteCurve(uint32_t index);
@@ -74,6 +71,12 @@ public:
     void addCurveControlPoints(uint32_t index,const std::vector<B_SPLINE_DATATYPE>& controlP);
     void clearCurveControlPoints(uint32_t index);
 
+    int addSurface();
+
+    int deleteSurface(uint32_t index);
+
+    void addSurfaceControlPoints(uint32_t index,const std::vector<B_SPLINE_DATATYPE>& controlP,uint32_t pitch);
+    void clearSurfaceControlPoints(uint32_t index);
 
 
 private:
