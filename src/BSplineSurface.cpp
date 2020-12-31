@@ -5,6 +5,8 @@
 #include "BSplineSurface.h"
 #include <iostream>
 #include <cassert>
+#include <Eigen/Core>
+#include <Eigen/LU>
 BSplineSurface::BSplineSurface()
 :step_u(step),step_v(step),order_u(order),order_v(order),pitch(0)
 {

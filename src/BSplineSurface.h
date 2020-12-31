@@ -13,6 +13,7 @@ public:
 
     const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(std::vector<B_SPLINE_DATATYPE>& controlP) override;
     const std::vector<B_SPLINE_DATATYPE>& getApproximationP(std::vector<B_SPLINE_DATATYPE>& controlP) override;
+    const std::vector<B_SPLINE_DATATYPE>& DeBoor_Cox(std::vector<B_SPLINE_DATATYPE>& controlP);
 public:
 
     void setupUVStep(float step_u,float step_v);

@@ -8,6 +8,8 @@ set(PROJECT_THIRD_PARTY_DIR ${CMAKE_SOURCE_DIR}/third_party)
 
 #glm
 set(GLM_INCLUDE_DIR ${PROJECT_THIRD_PARTY_DIR}/glm/glm)
+#eigen
+set(EIGEN_INCLUDE_DIR ${PROJECT_THIRD_PARTY_DIR}/eigen)
 #sdl2-2.0.3
 set(SDL_INCLUDE_DIR ${PROJECT_THIRD_PARTY_DIR}/sdl2-2.0.3/include)
 set(SDL_LIB_DIR ${PROJECT_THIRD_PARTY_DIR}/sdl2-2.0.3/bin/linux64)
@@ -20,7 +22,8 @@ aux_source_directory(${CMAKE_SOURCE_DIR}/src SRC)
 add_executable(B_Spline ${SRC} ${GLAD_SRC_DIR}/glad.c)
 
 target_include_directories(B_Spline PRIVATE
-        ${GLM_INCLUDE_DIR} ${SDL_INCLUDE_DIR} ${GLAD_INCLUDE_DIR})
+        ${GLM_INCLUDE_DIR} ${SDL_INCLUDE_DIR} ${GLAD_INCLUDE_DIR}
+        ${EIGEN_INCLUDE_DIR})
 
 target_link_directories(B_Spline PRIVATE
         ${SDL_LIB_DIR})
