@@ -32,7 +32,7 @@ void Curve::draw()
     glBindVertexArray(vao);
     shader->use();
     shader->setMat4("MVPMatrix",projection*view*model);
-    glPointSize(3.f);
+
     glDrawElements(draw_mode,index.size(),GL_UNSIGNED_INT,nullptr);
     glBindVertexArray(0);
     GL_CHECK

@@ -151,7 +151,12 @@ int Displayer::deleteCurve(uint32_t index)
     return -1;
 }
 
-
+void Displayer::setCurveDrawMode(uint32_t index, GLenum mode)
+{
+    if(index<curves.size()){
+        curves[index]->setupDrawMode(mode);
+    }
+}
 void Displayer::addCurveControlPoints(uint32_t index,const std::vector<B_SPLINE_DATATYPE>& controlP)
 {
     if(index<curves.size()){
@@ -202,3 +207,5 @@ void Displayer::clearSurfaceControlPoints(uint32_t index)
         surfaces[index]->setupSurfaceVertex({},0);
     }
 }
+
+

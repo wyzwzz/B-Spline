@@ -68,6 +68,8 @@ public:
      */
     int deleteCurve(uint32_t index);
 
+    void setCurveDrawMode(uint32_t index,GLenum mode);
+
     void addCurveControlPoints(uint32_t index,const std::vector<B_SPLINE_DATATYPE>& controlP);
     void clearCurveControlPoints(uint32_t index);
 

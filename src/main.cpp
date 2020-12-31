@@ -36,12 +36,15 @@ int main() {
         0.f,2.f,0.9f, 1.f,2.f,0.7f, 2.f,2.f,0.5f, 3.f,2.f,0.4f, 4.f,2.f,0.5f, 5.f,2.f,0.7f, 6.f,2.f,0.9f,
         0.f,1.f,1.2f, 1.f,1.f,0.8f, 2.f,1.f,0.6f, 3.f,1.f,0.5f, 4.f,1.f,0.6f, 5.f,1.f,0.8f, 6.f,1.f,1.2f,
     };
-    int surface0=displayer.addSurface();
-    displayer.addSurfaceControlPoints(surface0,surface_p0,7);
+//    int surface0=displayer.addSurface();
+//    displayer.addSurfaceControlPoints(surface0,surface_p0,7);
     BSplineSurface b_spline_surface;
     b_spline_surface.setupPitch(7);
+    b_spline_surface.setupUVStep(0.003f,0.003f);
     auto& _v_0=b_spline_surface.getInterpolationP(surface_p0);
-
+    int curve22=displayer.addCurve();
+    displayer.setCurveDrawMode(curve22,GL_POINTS);
+    displayer.addCurveControlPoints(curve22,_v_0);
     displayer.render();
     return 0;
 }
