@@ -12,7 +12,7 @@
  */
 class BSplineCurve : public BSpline{
 public:
-    BSplineCurve()=default;
+    BSplineCurve():h(4){};
 
     /**
      * @brief get interpolation points by step.
@@ -23,7 +23,7 @@ public:
 
 public:
     const std::vector<B_SPLINE_DATATYPE>& DeBoor_Cox(std::vector<B_SPLINE_DATATYPE>& controlP);
-
+    const std::vector<B_SPLINE_DATATYPE>& BaseFuncMethod(std::vector<B_SPLINE_DATATYPE>& controlP);
 private:
     /**
      * x0 y0 z0 x1 y1 z1
@@ -34,7 +34,7 @@ private:
     /**
      *
      */
-
+    size_t h;
 };
 
 

@@ -32,6 +32,17 @@ void BSplineSurface::setupPitch(int pitch)
 
 const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getInterpolationP(std::vector<float> &controlP)
 {
+
+}
+
+const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getApproximationP(std::vector<float> &controlP)
+{
+
+    return this->interpolationP;
+}
+
+const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::BasicFuncMethod(std::vector<float> &controlP)
+{
     if(pitch==0){
         std::cout<<"ERROR: pitch is zero!"<<std::endl;
         return {};
@@ -155,11 +166,5 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getInterpolationP(std::vec
 //            this->interpolationP.push_back(temp_bspline_curves[i][j]);
 //    }
     std::cout<<interpolationP.size()/3<<std::endl;
-    return this->interpolationP;
-}
-
-const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getApproximationP(std::vector<float> &controlP)
-{
-
     return this->interpolationP;
 }

@@ -10,7 +10,7 @@
 class BSpline{
 public:
     BSpline()
-    :step(0.01f),order(3)
+    :step(0.01f),order(4)
     {}
 
     virtual const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(std::vector<B_SPLINE_DATATYPE>& controlP)=0;
