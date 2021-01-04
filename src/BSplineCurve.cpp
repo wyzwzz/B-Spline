@@ -80,9 +80,9 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineCurve::getInterpolationP(std::vecto
 
     Eigen::MatrixX3f P=N.lu().solve(D);
 
-    for(int i=0;i<n;i++){
-        std::cout<<P(i,0)<<" "<<P(i,1)<<" "<<P(i,2)<<std::endl;
-    }
+//    for(int i=0;i<n;i++){
+//        std::cout<<P(i,0)<<" "<<P(i,1)<<" "<<P(i,2)<<std::endl;
+//    }
     std::vector<B_SPLINE_DATATYPE> control_points;
     control_points.reserve(controlP.size());
     for(size_t i=0;i<P.rows();i++){
@@ -192,6 +192,7 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineCurve::getApproximationP(std::vecto
 }
 const std::vector<B_SPLINE_DATATYPE> &BSplineCurve::BaseFuncMethod(std::vector<float> &controlP)
 {
+    this->interpolationP.clear();
     size_t n=controlP.size()/3;
     knots.resize(n+order);
     for(size_t i=0;i<order;i++)

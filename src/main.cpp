@@ -33,22 +33,23 @@ int main() {
 //    int curve11=displayer.addCurve();
 //    displayer.addCurveControlPoints(curve11,v2);
 
-//    std::vector<float> surface_p0{
-//        0.f,5.f,1.2f, 1.f,5.f,0.8f, 2.f,5.f,0.6f, 3.f,5.f,0.5f, 4.f,5.f,0.6f, 5.f,5.f,0.8f, 6.f,5.f,1.2f,
-//        0.f,4.f,0.9f, 1.f,4.f,0.7f, 2.f,4.f,0.5f, 3.f,4.f,0.4f, 4.f,4.f,0.5f, 5.f,4.f,0.7f, 6.f,4.f,0.9f,
-//        0.f,3.f,0.8f, 1.f,3.f,0.6f, 2.f,3.f,0.4f, 3.f,3.f,0.3f, 4.f,3.f,0.4f, 5.f,3.f,0.6f, 6.f,3.f,0.8f,
-//        0.f,2.f,0.9f, 1.f,2.f,0.7f, 2.f,2.f,0.5f, 3.f,2.f,0.4f, 4.f,2.f,0.5f, 5.f,2.f,0.7f, 6.f,2.f,0.9f,
-//        0.f,1.f,1.2f, 1.f,1.f,0.8f, 2.f,1.f,0.6f, 3.f,1.f,0.5f, 4.f,1.f,0.6f, 5.f,1.f,0.8f, 6.f,1.f,1.2f,
-//    };
+    std::vector<float> surface_p0{
+        0.f,5.f,1.2f, 1.f,5.f,0.8f, 2.f,5.f,0.6f, 3.f,5.f,0.5f, 4.f,5.f,0.6f, 5.f,5.f,0.8f, 6.f,5.f,1.2f,
+        0.f,4.f,0.9f, 1.f,4.f,0.7f, 2.f,4.f,0.5f, 3.f,4.f,0.4f, 4.f,4.f,0.5f, 5.f,4.f,0.7f, 6.f,4.f,0.9f,
+        0.f,3.f,0.8f, 1.f,3.f,0.6f, 2.f,3.f,0.4f, 3.f,3.f,0.3f, 4.f,3.f,0.4f, 5.f,3.f,0.6f, 6.f,3.f,0.8f,
+        0.f,2.f,0.9f, 1.f,2.f,0.7f, 2.f,2.f,0.5f, 3.f,2.f,0.4f, 4.f,2.f,0.5f, 5.f,2.f,0.7f, 6.f,2.f,0.9f,
+        0.f,1.f,1.2f, 1.f,1.f,0.8f, 2.f,1.f,0.6f, 3.f,1.f,0.5f, 4.f,1.f,0.6f, 5.f,1.f,0.8f, 6.f,1.f,1.2f,
+    };
 //    int surface0=displayer.addSurface();
 //    displayer.addSurfaceControlPoints(surface0,surface_p0,7);
-//    BSplineSurface b_spline_surface;
-//    b_spline_surface.setupPitch(7);
-//    b_spline_surface.setupUVStep(0.003f,0.003f);
-//    auto& _v_0=b_spline_surface.getInterpolationP(surface_p0);
-//    int curve22=displayer.addCurve();
-//    displayer.setCurveDrawMode(curve22,GL_POINTS);
-//    displayer.addCurveControlPoints(curve22,_v_0);
+    BSplineSurface b_spline_surface;
+    b_spline_surface.setupPitch(7);
+    b_spline_surface.setupUVStep(0.003f,0.003f);
+    auto& _v_0=b_spline_surface.getInterpolationP(surface_p0);
+    std::cout<<"size: "<<_v_0.size()/3<<std::endl;
+    int curve22=displayer.addCurve();
+    displayer.setCurveDrawMode(curve22,GL_POINTS);
+    displayer.addCurveControlPoints(curve22,_v_0);
 
 //    Eigen::Matrix<float,4,3> mat43;
 //    mat43<<1.f,2.f,3.f,
