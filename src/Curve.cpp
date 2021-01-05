@@ -18,7 +18,7 @@ void Curve::setupMVPMatrix(const glm::mat4 &mvp)
 void Curve::setupCurveVertex(const std::vector<float> &vertex)
 {
     deleteGLResource();
-
+    std::cout<<"vertex size: "<<vertex.size()<<std::endl;
     this->vertex=vertex;
     index.resize((vertex.size()/3-1)*2);
     for(size_t i=0;i<vertex.size()/3-1;i++){

@@ -5,7 +5,8 @@
 #include "Surface.h"
 #include "Util.h"
 Surface::Surface()
-:model(glm::mat4(1.f)),draw_mode(GL_TRIANGLES)
+:model(glm::mat4(1.f)),draw_mode(GL_TRIANGLES),
+color({1.f,0.f,0.f})
 {
     setupGLShader(SURFACE_VERTEX_SHADER_PATH,SURFACE_FRAGMENT_SHADER_PATH);
 }
@@ -61,6 +62,7 @@ void Surface::draw()
     glBindVertexArray(vao);
     shader->use();
     shader->setMat4("MVPMatrix",projection*view*model);
+    shader->setVec3("color",color[0],color[1],color[2]);
     glDrawElements(draw_mode,index.size(),GL_UNSIGNED_INT,nullptr);
     glBindVertexArray(0);
     GL_CHECK
@@ -100,5 +102,10 @@ void Surface::deleteGLResource()
     glDeleteBuffers(1,&vbo);
     glDeleteBuffers(1,&ebo);
     GL_CHECK
+}
+
+void Surface::setupColor(std::array<float, 3> &color)
+{
+    this->color=color;
 }
 

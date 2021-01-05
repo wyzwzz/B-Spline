@@ -327,4 +327,9 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineCurve::DeBoor_Cox(std::vector<float
     return this->interpolationP;
 }
 
+void BSplineCurve::setupApproximationH(size_t h)
+{
+    this->h=h;
+}
+
 

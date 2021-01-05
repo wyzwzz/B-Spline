@@ -22,6 +22,7 @@ public:
     const std::vector<B_SPLINE_DATATYPE>& getApproximationP(std::vector<B_SPLINE_DATATYPE>& controlP) override;
 
 public:
+    void setupApproximationH(size_t h);
     const std::vector<B_SPLINE_DATATYPE>& DeBoor_Cox(std::vector<B_SPLINE_DATATYPE>& controlP);
     const std::vector<B_SPLINE_DATATYPE>& BaseFuncMethod(std::vector<B_SPLINE_DATATYPE>& controlP);
 private:

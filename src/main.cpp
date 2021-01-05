@@ -42,10 +42,11 @@ int main() {
     };
 //    int surface0=displayer.addSurface();
 //    displayer.addSurfaceControlPoints(surface0,surface_p0,7);
+//    displayer.setupSurfaceColor(surface0,{0.f,1.f,0.f});
     BSplineSurface b_spline_surface;
     b_spline_surface.setupPitch(7);
     b_spline_surface.setupUVStep(0.003f,0.003f);
-    auto& _v_0=b_spline_surface.getInterpolationP(surface_p0);
+    auto& _v_0=b_spline_surface.getApproximationP(surface_p0);
     std::cout<<"size: "<<_v_0.size()/3<<std::endl;
     int curve22=displayer.addCurve();
     displayer.setCurveDrawMode(curve22,GL_POINTS);

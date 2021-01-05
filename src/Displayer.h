@@ -77,6 +77,8 @@ public:
 
     int deleteSurface(uint32_t index);
 
+    void setupSurfaceColor(uint32_t index,std::array<float,3> color);
+
     void addSurfaceControlPoints(uint32_t index,const std::vector<B_SPLINE_DATATYPE>& controlP,uint32_t pitch);
     void clearSurfaceControlPoints(uint32_t index);
 

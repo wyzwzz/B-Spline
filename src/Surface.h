@@ -27,6 +27,7 @@ public:
     void setupGLResource();
     void setupGLShader(const std::string& vertex_shader_path,const std::string& fragment_shader_path);
     void setupDrawMode(GLenum mode);
+    void setupColor(std::array<float,3>& color);
 private:
     void deleteGLResource();
 private:
@@ -40,6 +41,7 @@ private:
     glm::mat4 mvp;
     glm::mat4 model,view,projection;
     GLenum draw_mode;
+    std::array<float,3> color;
 };
 
 

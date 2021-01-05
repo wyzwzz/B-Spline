@@ -1,9 +1,9 @@
 #version 430 core
 
-
+uniform vec3 color;
 out vec4 frag_color;
 
 void main()
 {
-    frag_color=vec4(1.f,0.f,0.f,1.f);
+    frag_color=vec4(color,1.f);
 }

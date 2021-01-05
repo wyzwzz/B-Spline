@@ -208,4 +208,11 @@ void Displayer::clearSurfaceControlPoints(uint32_t index)
     }
 }
 
+void Displayer::setupSurfaceColor(uint32_t index,std::array<float,3> color)
+{
+    if(index<surfaces.size()){
+        surfaces[index]->setupColor(color);
+    }
+}
+
 
