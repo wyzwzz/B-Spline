@@ -6,7 +6,7 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 #include <Eigen/SparseLU>
-int main() {
+int main(int argc,char** argv) {
     std::cout << "B-Spline" << std::endl;
     Displayer displayer(1024,1024);
     std::vector<float> v{5.f,1.f,0.f,

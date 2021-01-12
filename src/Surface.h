@@ -7,6 +7,7 @@
 #include <glad/glad.h>
 #include <vector>
 #include <memory>
+#include <array>
 #include "Config.h"
 #include "Shader.h"
 class Surface {
