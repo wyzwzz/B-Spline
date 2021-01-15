@@ -8,7 +8,9 @@
 
 class Ellipsoid {
 public:
-    Ellipsoid()=default;
+    Ellipsoid():center_x(0.f),center_y(0.f),center_z(0.f),a(1.f),b(1.f),c(1.f){}
+
+
 private:
     //(x-center_x)^2/a+(y-center_y)^2/b+(z-center_z)^2/c=1
     float center_x,center_y,center_z;
