@@ -79,7 +79,7 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getInterpolationP(std::vec
     control_pts.resize(col * 3);
 
     BSplineCurve bspline_curve;
-
+    bspline_curve.setupStep(step_u);
     for (size_t r = 0; r < row; r++) {
         temp_bspline_curves[r].reserve(1.0 / step_u * 3);
 #ifndef USE_B_SPLINE_CURVE
@@ -146,6 +146,7 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getInterpolationP(std::vec
 //                              temp_bspline_curves[r].end());
 //    }
 //    return this->interpolationP;
+    bspline_curve.setupStep(step_v);
     control_pts.resize(row * 3, 0.f);
     for (size_t c = 0; c < temp_bspline_curves[0].size() / 3; c++) {
         Eigen::MatrixXf N(row, row);

@@ -2,10 +2,7 @@
 #include "Displayer.h"
 #include "BSplineCurve.h"
 #include "BSplineSurface.h"
-#include <Eigen/Core>
-#include <Eigen/Dense>
-#include <Eigen/Sparse>
-#include <Eigen/SparseLU>
+#include "Ellipsoid.h"
 int main() {
     std::cout << "B-Spline" << std::endl;
     Displayer displayer(1024,1024);
@@ -52,16 +49,42 @@ int main() {
     displayer.setCurveDrawMode(curve22,GL_POINTS);
     displayer.addCurveControlPoints(curve22,_v_0);
 
-//    Eigen::Matrix<float,4,3> mat43;
-//    mat43<<1.f,2.f,3.f,
-//           4.f,5.f,6.f,
-//           7.f,8.f,9.f,
-//           10.f,11.f,12.f;
-//    Eigen::SparseMatrix<float> lu(4,3);
+    //===============================================
+    Ellipsoid ellipsoid;
+    int row,col;
+    ellipsoid.getRowAndCol(&row,&col);
+    auto control_points=ellipsoid.getControlPoints();
+    for(size_t i=0;i<control_points.size()/3;i++)
+        std::cout<<"point "<<i<<": "<<control_points[i*3]<<" "<<control_points[i*3+1]<<" "<<control_points[i*3+2]<<std::endl;
+    BSplineSurface b_spline_surface1;
+    b_spline_surface1.setupPitch(col);
+    b_spline_surface1.setupUVStep(0.003f,0.003f);
+    auto& solid_v=b_spline_surface1.getInterpolationP(control_points);
+    std::cout<<"approxiamtion points num: "<<solid_v.size()/3<<std::endl;
+    for(size_t i=0;i<solid_v.size()/3;i++)
+        std::cout<<"point "<<i<<": "<<solid_v[i*3]<<" "<<solid_v[i*3+1]<<" "<<solid_v[i*3+2]<<std::endl;
+    int curve33=displayer.addCurve();
+    displayer.setCurveDrawMode(curve33,GL_POINTS);
+    std::vector<float> test;
+    int i=18;
+    test.insert(test.end(),solid_v.begin()+i*303,solid_v.begin()+303*(i+1));
+    displayer.addCurveControlPoints(curve33,solid_v);
+    //===============================================
+//    Ellipse ellipse;
+//    ellipse.setSampleInterval(45);
+//    auto control_pts=ellipse.getControlPoints();
+//
+//    int curve44=displayer.addCurve();
+////    displayer.setCurveDrawMode(curve44,GL_POINTS);
+//    for(int i=0;i<control_pts.size()/3;i++)
+//        std::cout<<control_pts[i*3+0]<<" "
+//                <<control_pts[i*3+1]<<" "
+//                <<control_pts[i*3+2]<<std::endl;
+//    auto& res_pts=b_spline_curve.getInterpolationP(control_pts);
+//    displayer.addCurveControlPoints(curve44,res_pts);
 
-//    Eigen::SparseLU<>
-//    std::cout<<mat43.inverse()<<std::endl;
 
+    //===============================================
     displayer.render();
     return 0;
 }
