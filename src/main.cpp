@@ -2,18 +2,20 @@
 #include "Displayer.h"
 #include "BSplineCurve.h"
 #include "BSplineSurface.h"
-#include <Eigen/Core>
-#include <Eigen/Dense>
-#include <Eigen/Sparse>
-#include <Eigen/SparseLU>
+#include <cmath>
 int main() {
     std::cout << "B-Spline" << std::endl;
     Displayer displayer(1024,1024);
-    std::vector<float> v{5.f,1.f,0.f,
-                         1.f,1.f,0.f,
-                         1.f,5.f,0.f,
-                         3.f,8.f,0.f,
-                         5.f,3.f,0.f};
+    auto _t=sqrt(2.f)/2;
+    std::vector<float> v{0.f,1.f,0.f,
+                         _t,_t,0.f,
+                         1.f,0.f,0.f,
+                         _t,-_t,0.f,
+                         0.f,-1.f,0.f,
+                         -_t,-_t,0.f,
+                         -1.f,0.f,0.f,
+                         -_t,_t,0.f,
+                         0.f,1.f,0.f};
     std::vector<float> v2{
             -5.f,-1.f,0.f,
             -1.f,-1.f,0.f,
@@ -23,15 +25,19 @@ int main() {
     };
     int curve0=displayer.addCurve();
     BSplineCurve b_spline_curve;
-    auto& v_=b_spline_curve.getApproximationP(v);
+    auto& v_=b_spline_curve.getInterpolationP(v);
+    std::cout<<"circle\n";
+    for(size_t i=0;i<v_.size()/3;i++){
+        std::cout<<(v_[i*3]*v_[i*3]+v_[i*3+1]*v_[i*3+1])<<std::endl;
+    }
     displayer.addCurveControlPoints(curve0,v_);
-//    int curve1=displayer.addCurve();
-//    auto& v_2=b_spline_curve.DeBoor_Cox(v2);
-//    displayer.addCurveControlPoints(curve1,v_2);
-    int curve00=displayer.addCurve();
-    displayer.addCurveControlPoints(curve00,v);
-//    int curve11=displayer.addCurve();
-//    displayer.addCurveControlPoints(curve11,v2);
+    int curve1=displayer.addCurve();
+    auto& v_2=b_spline_curve.DeBoor_Cox(v2);
+    displayer.addCurveControlPoints(curve1,v_2);
+//    int curve00=displayer.addCurve();
+//    displayer.addCurveControlPoints(curve00,v);
+    int curve11=displayer.addCurve();
+    displayer.addCurveControlPoints(curve11,v2);
 
     std::vector<float> surface_p0{
         0.f,5.f,1.2f, 1.f,5.f,0.8f, 2.f,5.f,0.6f, 3.f,5.f,0.5f, 4.f,5.f,0.6f, 5.f,5.f,0.8f, 6.f,5.f,1.2f,
