@@ -107,16 +107,14 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getInterpolationP(std::vec
             for (int k = 2; k <= order_u; k++) {
                 for (size_t i = 0; i < col + order_u; i++) {
                     float n_ik, n_i1k;
-                    if ((knots_u[i + k - 1] - knots_u[i]) == 0.f)
+                    if (i + k - 1 >= col + order_u || (knots_u[i + k - 1] - knots_u[i]) == 0.f)
                         n_ik = 0.f;
                     else
-                        n_ik = i + k - 1 >= col + order_u ? 0.f : (t_u[t_i] - knots_u[i]) /
-                                                                  (knots_u[i + k - 1] - knots_u[i]) * b_spline_base[i];
-                    if ((knots_u[i + k] - knots_u[i + 1]) == 0.f)
+                        n_ik =  (t_u[t_i] - knots_u[i]) /(knots_u[i + k - 1] - knots_u[i]) * b_spline_base[i];
+                    if (i + k >= col + order_u || (knots_u[i + k] - knots_u[i + 1]) == 0.f)
                         n_i1k = 0.f;
                     else
-                        n_i1k = i + k >= col + order_u ? 0.f : (knots_u[i + k] - t_u[t_i]) /
-                                                               (knots_u[i + k] - knots_u[i + 1]) * b_spline_base[i + 1];
+                        n_i1k = (knots_u[i + k] - t_u[t_i]) /(knots_u[i + k] - knots_u[i + 1]) * b_spline_base[i + 1];
                     b_spline_base[i] = n_ik + n_i1k;
                 }
             }
@@ -172,16 +170,14 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getInterpolationP(std::vec
             for (int k = 2; k <= order_v; k++) {
                 for (size_t i = 0; i < row + order_v; i++) {
                     float n_ik, n_i1k;
-                    if ((knots_v[i + k - 1] - knots_v[i]) == 0.f)
+                    if (i + k - 1 >= row + order_v || (knots_v[i + k - 1] - knots_v[i]) == 0.f)
                         n_ik = 0.f;
                     else
-                        n_ik = i + k - 1 >= row + order_v ? 0.f : (t_v[t_i] - knots_v[i]) /
-                                                                  (knots_v[i + k - 1] - knots_v[i]) * b_spline_base[i];
-                    if ((knots_v[i + k] - knots_v[i + 1]) == 0.f)
+                        n_ik =  (t_v[t_i] - knots_v[i]) /(knots_v[i + k - 1] - knots_v[i]) * b_spline_base[i];
+                    if (i + k >= row + order_v || (knots_v[i + k] - knots_v[i + 1]) == 0.f)
                         n_i1k = 0.f;
                     else
-                        n_i1k = i + k >= row + order_v ? 0.f : (knots_v[i + k] - t_v[t_i]) /
-                                                               (knots_v[i + k] - knots_v[i + 1]) * b_spline_base[i + 1];
+                        n_i1k = (knots_v[i + k] - t_v[t_i]) /(knots_v[i + k] - knots_v[i + 1]) * b_spline_base[i + 1];
                     b_spline_base[i] = n_ik + n_i1k;
                 }
             }
@@ -281,16 +277,14 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getApproximationP(std::vec
             for (int k = 2; k <= order_u; k++) {
                 for (size_t i = 0; i < h_u + order_u; i++) {
                     float n_ik, n_i1k;
-                    if ((knots_u[i + k - 1] - knots_u[i]) == 0.f)
+                    if (i + k - 1 >= col + order_u || (knots_u[i + k - 1] - knots_u[i]) == 0.f)
                         n_ik = 0.f;
                     else
-                        n_ik = i + k - 1 >= col + order_u ? 0.f : (t_u[t_i] - knots_u[i]) /
-                                                                  (knots_u[i + k - 1] - knots_u[i]) * b_spline_base[i];
-                    if ((knots_u[i + k] - knots_u[i + 1]) == 0.f)
+                        n_ik = (t_u[t_i] - knots_u[i]) /(knots_u[i + k - 1] - knots_u[i]) * b_spline_base[i];
+                    if (i + k >= col + order_u || (knots_u[i + k] - knots_u[i + 1]) == 0.f)
                         n_i1k = 0.f;
                     else
-                        n_i1k = i + k >= col + order_u ? 0.f : (knots_u[i + k] - t_u[t_i]) /
-                                                               (knots_u[i + k] - knots_u[i + 1]) * b_spline_base[i + 1];
+                        n_i1k = (knots_u[i + k] - t_u[t_i]) /(knots_u[i + k] - knots_u[i + 1]) * b_spline_base[i + 1];
                     b_spline_base[i] = n_ik + n_i1k;
                 }
             }
@@ -368,16 +362,14 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineSurface::getApproximationP(std::vec
             for (int k = 2; k <= order_v; k++) {
                 for (size_t i = 0; i < h_v + order_v; i++) {
                     float n_ik, n_i1k;
-                    if ((knots_v[i + k - 1] - knots_v[i]) == 0.f)
+                    if (i + k - 1 >= h_v + order_v || (knots_v[i + k - 1] - knots_v[i]) == 0.f)
                         n_ik = 0.f;
                     else
-                        n_ik = i + k - 1 >= h_v + order_v ? 0.f : (t_v[t_i] - knots_v[i]) /
-                                                                  (knots_v[i + k - 1] - knots_v[i]) * b_spline_base[i];
-                    if ((knots_v[i + k] - knots_v[i + 1]) == 0.f)
+                        n_ik =  (t_v[t_i] - knots_v[i]) /(knots_v[i + k - 1] - knots_v[i]) * b_spline_base[i];
+                    if (i + k >= h_v + order_v || (knots_v[i + k] - knots_v[i + 1]) == 0.f)
                         n_i1k = 0.f;
                     else
-                        n_i1k = i + k >= h_v + order_v ? 0.f : (knots_v[i + k] - t_v[t_i]) /
-                                                               (knots_v[i + k] - knots_v[i + 1]) * b_spline_base[i + 1];
+                        n_i1k =  (knots_v[i + k] - t_v[t_i]) /(knots_v[i + k] - knots_v[i + 1]) * b_spline_base[i + 1];
                     b_spline_base[i] = n_ik + n_i1k;
                 }
             }
