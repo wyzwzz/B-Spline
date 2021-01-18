@@ -17,7 +17,7 @@ public:
     /**
      * @brief get interpolation points by step.
      */
-    const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(std::vector<B_SPLINE_DATATYPE>& controlP) override;
+    const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(const std::vector<B_SPLINE_DATATYPE>& controlP) override;
 
     const std::vector<B_SPLINE_DATATYPE>& getApproximationP(std::vector<B_SPLINE_DATATYPE>& controlP) override;
 

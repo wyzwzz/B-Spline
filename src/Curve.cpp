@@ -6,7 +6,9 @@
 #include "Util.h"
 
 Curve::Curve()
-:model(glm::mat4(1.f)),draw_mode(GL_LINES)
+:model(glm::mat4(1.f)),draw_mode(GL_LINES),
+color({1.f,0.f,0.f}),
+point_size(1.f)
 {
     setupGLShader(CURVE_VERTEX_SHADER_PATH,CURVE_FRAGMENT_SHADER_PATH);
 }
@@ -18,7 +20,7 @@ void Curve::setupMVPMatrix(const glm::mat4 &mvp)
 void Curve::setupCurveVertex(const std::vector<float> &vertex)
 {
     deleteGLResource();
-    std::cout<<"vertex size: "<<vertex.size()<<std::endl;
+//    std::cout<<"vertex size: "<<vertex.size()<<std::endl;
     this->vertex=vertex;
     index.resize((vertex.size()/3-1)*2);
     for(size_t i=0;i<vertex.size()/3-1;i++){
@@ -32,10 +34,11 @@ void Curve::draw()
     glBindVertexArray(vao);
     shader->use();
     shader->setMat4("MVPMatrix",projection*view*model);
-
+    shader->setVec3("line_color",color[0],color[1],color[2]);
+    glPointSize(point_size);
     glDrawElements(draw_mode,index.size(),GL_UNSIGNED_INT,nullptr);
     glBindVertexArray(0);
-    GL_CHECK
+
 }
 
 void Curve::setupGLResource()
@@ -87,6 +90,15 @@ void Curve::setupProjection(const glm::mat4 &projection)
 void Curve::setupDrawMode(GLenum mode)
 {
     draw_mode=mode;
+}
+
+void Curve::setupColor(std::array<float, 3> &color)
+{
+    this->color=color;
+}
+
+void Curve::setupPointSize(float size) {
+    point_size=size;
 }
 
 

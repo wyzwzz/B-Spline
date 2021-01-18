@@ -17,19 +17,21 @@ void Surface::setupSurfaceVertex(const std::vector<float> &vertex, uint32_t pitc
     deleteGLResource();
     this->vertex=vertex;
     this->col=pitch;
-    this->row=vertex.size()/3/pitch;
-    assert(col*row*3==vertex.size());
+    this->row=vertex.size()/3/2/pitch;
+
     triangle_num=(row-1)*(col-1)*2;
     index.reserve(triangle_num*3);
     //set triangle's index
     for(size_t i=0;i<row-1;i++){
         for(size_t j=0;j<col-1;j++){
+            //triangle 1
             // row i, col j
             index.push_back(i*col+j);
             // row i+1, col j
             index.push_back((i+1)*col+j);
             // row i+1, col j+1
             index.push_back((i+1)*col+j+1);
+            //triangle 2
             // row i, col j
             index.push_back(i*col+j);
             // row i+1, col j+1
@@ -63,9 +65,11 @@ void Surface::draw()
     shader->use();
     shader->setMat4("MVPMatrix",projection*view*model);
     shader->setVec3("color",color[0],color[1],color[2]);
+    shader->setVec3("view_pos",view_pos[0],view_pos[1],view_pos[2]);
+//    glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
     glDrawElements(draw_mode,index.size(),GL_UNSIGNED_INT,nullptr);
     glBindVertexArray(0);
-    GL_CHECK
+
 }
 
 void Surface::setupGLResource()
@@ -81,6 +85,8 @@ void Surface::setupGLResource()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,index.size()*sizeof(GLuint),index.data(),GL_STATIC_DRAW);
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(B_SPLINE_DATATYPE),(void*)0);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,3*sizeof(B_SPLINE_DATATYPE),(void*)(this->row*this->col*3*sizeof(float)));
+    glEnableVertexAttribArray(1);
     glBindVertexArray(0);
     GL_CHECK
 }
@@ -107,5 +113,10 @@ void Surface::deleteGLResource()
 void Surface::setupColor(std::array<float, 3> &color)
 {
     this->color=color;
+}
+
+void Surface::setupViewPos(glm::vec3 &view_pos)
+{
+    this->view_pos=view_pos;
 }
 

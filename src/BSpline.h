@@ -13,7 +13,7 @@ public:
     :step(0.01f),order(4)
     {}
 
-    virtual const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(std::vector<B_SPLINE_DATATYPE>& controlP)=0;
+    virtual const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(const std::vector<B_SPLINE_DATATYPE>& controlP)=0;
     virtual const std::vector<B_SPLINE_DATATYPE>& getApproximationP(std::vector<B_SPLINE_DATATYPE>& controlP)=0;
     void setupStep(float step){this->step=step;}
     void setupOrder(int order){this->order=order;};

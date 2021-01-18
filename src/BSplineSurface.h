@@ -11,7 +11,7 @@ class BSplineSurface : public BSpline{
 public:
     BSplineSurface();
 
-    const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(std::vector<B_SPLINE_DATATYPE>& controlP) override;
+    const std::vector<B_SPLINE_DATATYPE>& getInterpolationP(const std::vector<B_SPLINE_DATATYPE>& controlP) override;
     const std::vector<B_SPLINE_DATATYPE>& getApproximationP(std::vector<B_SPLINE_DATATYPE>& controlP) override;
     const std::vector<B_SPLINE_DATATYPE>& BasicFuncMethod(std::vector<B_SPLINE_DATATYPE>& controlP);
 public:
@@ -20,6 +20,7 @@ public:
     void setupUVOrder(int order_u,int order_v);
     void setupApproximationUVH(size_t h_u,size_t h_v);
     void setupPitch(int pitch);
+    int getResultPitch() const{return this->result_pitch;}
 private:
     int pitch;
     float step_u,step_v;
@@ -30,6 +31,8 @@ private:
 
     std::vector<B_SPLINE_DATATYPE> interpolationP;
     std::vector<B_SPLINE_DATATYPE> approximationP;
+
+    int result_pitch;
 };
 
 

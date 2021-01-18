@@ -21,14 +21,24 @@ public:
     void setupSurfaceVertex(const std::vector<B_SPLINE_DATATYPE>& vertex,uint32_t pitch);
 
     void setupMVPMatrix(const glm::mat4& mvp)=delete;
+
     void setupModel(const glm::mat4& model);
+
     void setupView(const glm::mat4& view);
+
     void setupProjection(const glm::mat4& projection);
+
     void draw();
+
     void setupGLResource();
+
     void setupGLShader(const std::string& vertex_shader_path,const std::string& fragment_shader_path);
+
     void setupDrawMode(GLenum mode);
-    void setupColor(std::array<float,3>& color);
+
+    void setupColor(std::array<float, 3> &color);
+
+    void setupViewPos(glm::vec3& view_pos);
 private:
     void deleteGLResource();
 private:
@@ -43,6 +53,7 @@ private:
     glm::mat4 model,view,projection;
     GLenum draw_mode;
     std::array<float,3> color;
+    glm::vec3 view_pos;
 };
 
 
