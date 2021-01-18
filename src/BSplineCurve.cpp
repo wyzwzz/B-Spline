@@ -47,16 +47,16 @@ const std::vector<B_SPLINE_DATATYPE> &BSplineCurve::getInterpolationP(const std:
         for (int k = 2; k <= order; k++) {
             for (size_t i = 0; i < n + order; i++) {
                 float n_ik, n_i1k;
-                if ((knots[i + k - 1] - knots[i]) == 0.f)
+                if (i + k - 1 >= n + order || (knots[i + k - 1] - knots[i]) == 0.f)
                     n_ik = 0.f;
                 else
-                    n_ik = i + k - 1 >= n + order ? 0.f : (t_k[t_i] - knots[i]) / (knots[i + k - 1] - knots[i]) *
-                                                          b_spline_base[i];
-                if ((knots[i + k] - knots[i + 1]) == 0.f)
+                    n_ik = (t_k[t_i] - knots[i]) / (knots[i + k - 1] - knots[i]) *
+                           b_spline_base[i];
+                if (i + k >= n + order || (knots[i + k] - knots[i + 1]) == 0.f)
                     n_i1k = 0.f;
                 else
-                    n_i1k = i + k >= n + order ? 0.f : (knots[i + k] - t_k[t_i]) / (knots[i + k] - knots[i + 1]) *
-                                                       b_spline_base[i + 1];
+                    n_i1k = (knots[i + k] - t_k[t_i]) / (knots[i + k] - knots[i + 1]) *
+                            b_spline_base[i + 1];
                 b_spline_base[i] = n_ik + n_i1k;
             }
 
